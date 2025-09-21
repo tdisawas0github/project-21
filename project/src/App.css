@@ -1,4 +1,11 @@
 /* Reset and Base Styles */
+:root {
+  --theme-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --theme-primary: #3498db;
+  --theme-secondary: #2980b9;
+  --theme-accent: #e74c3c;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +14,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--theme-background);
   min-height: 100vh;
   color: #333;
   margin: 0;
@@ -109,7 +116,7 @@ body {
 }
 
 .header-button.active {
-  background: linear-gradient(135deg, #3498db, #2980b9);
+  background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
@@ -123,10 +130,105 @@ body {
   font-weight: 500;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .header-info {
   color: #95a5a6;
   font-size: 0.8rem;
   line-height: 1.4;
+}
+
+/* Theme Selector */
+.theme-selector {
+  position: relative;
+}
+
+.theme-button {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-button:hover {
+  background: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 200px;
+  z-index: 1000;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.theme-option:hover {
+  background: rgba(52, 152, 219, 0.1);
+}
+
+.theme-option.active {
+  background: var(--theme-primary);
+  color: white;
+}
+
+.theme-preview {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+
+.theme-name {
+  font-weight: 500;
 }
 
 /* Main Content */
@@ -134,7 +236,7 @@ body {
   flex: 1;
   height: calc(100vh - 100px);
   overflow-y: auto;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--theme-background);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -227,7 +329,7 @@ body {
 }
 
 .btn-operation {
-  background: #3498db;
+  background: var(--theme-primary);
   color: white;
 }
 
@@ -237,7 +339,7 @@ body {
 }
 
 .btn-equals {
-  background: #e74c3c;
+  background: var(--theme-accent);
   color: white;
 }
 
@@ -520,7 +622,7 @@ body {
 }
 
 .new-note-btn {
-  background: #3498db;
+  background: var(--theme-primary);
   color: white;
   border: none;
   border-radius: 8px;
@@ -532,7 +634,7 @@ body {
 }
 
 .new-note-btn:hover {
-  background: #2980b9;
+  background: var(--theme-secondary);
   transform: translateY(-1px);
   box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
 }
@@ -793,12 +895,30 @@ body {
     font-weight: 600;
   }
 
-  .header-info {
+  .header-actions {
     order: 3;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.25rem;
+  }
+
+  .header-info {
     font-size: 0.7rem;
     text-align: center;
-    width: 100%;
-    margin-top: 0.25rem;
+  }
+
+  .theme-button {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .theme-dropdown {
+    right: -10px;
+    min-width: 180px;
   }
 
   .main-content {
@@ -889,6 +1009,17 @@ body {
 
   .header-info {
     font-size: 0.65rem;
+  }
+
+  .theme-button {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+
+  .theme-dropdown {
+    min-width: 160px;
+    right: -5px;
   }
 
   .main-content {
