@@ -25,7 +25,9 @@ function App() {
     <div className="app">
       <Hero activeTab={activeTab} setActiveTab={setActiveTab} />
       <main className="main-content">
-        {renderActiveComponent()}
+        <div className="content-wrapper">
+          {renderActiveComponent()}
+        </div>
       </main>
     </div>
   )
